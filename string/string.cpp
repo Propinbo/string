@@ -1,5 +1,6 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <cstring>
-#include <iostream>
 #include "string.h"
 
 String::String(const char* str) {
@@ -26,7 +27,7 @@ String& String::operator=(const String& s) {
     std::strcpy(str, s.str);
     return *this;
 }
-String& String::operator=(char* s) {
+String& String::operator=(const char* s) {
     delete[] str;
     length = std::strlen(s);
     str = new char[length + 1];
@@ -43,7 +44,7 @@ String String::operator+(const String& s) const {
     std::strcpy(res.str + length, s.str);
     return res;
 }
-String String::operator+(char* s) const {
+String String::operator+(const char* s) const {
     String res(length + std::strlen(s));
     std::strcpy(res.str, str);
     std::strcpy(res.str + length, s);
@@ -59,7 +60,7 @@ String& String::operator+=(const String& s) {
     return *this;
     // return *this = *this + s;
 }
-String& String::operator+=(char* s) {
+String& String::operator+=(const char* s) {
     char* buf = new char[length + std::strlen(s) + 1];
     std::strcpy(buf, str);
     std::strcpy(buf + length, s);
@@ -68,7 +69,7 @@ String& String::operator+=(char* s) {
     length = length + std::strlen(s);
     return *this;
 }
-String operator+(char* s1, const String& s2) {
+String operator+(const char* s1, const String& s2) {
     String res(s2.length + std::strlen(s1));
     std::strcpy(res.str, s1);
     std::strcpy(res.str + std::strlen(s1), s2.str);
@@ -91,55 +92,55 @@ const char& String::operator[](int i) const {
 bool String::operator==(const String& s) const {
     return std::strcmp(str, s.str) == 0;
 }
-bool String::operator==(char* s) const {
+bool String::operator==(const char* s) const {
     return std::strcmp(str, s) == 0;
 }
 bool String::operator!=(const String& s) const {
     return std::strcmp(str, s.str) != 0;
 }
-bool String::operator!=(char* s) const {
+bool String::operator!=(const char* s) const {
     return std::strcmp(str, s) != 0;
 }
 bool String::operator<=(const String& s) const {
     return std::strcmp(str, s.str) <= 0;
 }
-bool String::operator<=(char* s) const {
+bool String::operator<=(const char* s) const {
     return std::strcmp(str, s) <= 0;
 }
 bool String::operator>=(const String& s) const {
     return std::strcmp(str, s.str) >= 0;
 }
-bool String::operator>=(char* s) const {
+bool String::operator>=(const char* s) const {
     return std::strcmp(str, s) >= 0;
 }
 bool String::operator<(const String& s) const {
     return std::strcmp(str, s.str) < 0;
 }
-bool String::operator<(char* s) const {
+bool String::operator<(const char* s) const {
     return std::strcmp(str, s) < 0;
 }
 bool String::operator>(const String& s) const {
     return std::strcmp(str, s.str) > 0;
 }
-bool String::operator>(char* s) const {
+bool String::operator>(const char* s) const {
     return std::strcmp(str, s) > 0;
 }
-bool operator==(char* s1, const String& s2) {
+bool operator==(const char* s1, const String& s2) {
     return std::strcmp(s1, s2.str) == 0;
 }
-bool operator!=(char* s1, const String& s2) {
+bool operator!=(const char* s1, const String& s2) {
     return std::strcmp(s1, s2.str) != 0;
 }
-bool operator<=(char* s1, const String& s2) {
+bool operator<=(const char* s1, const String& s2) {
     return std::strcmp(s1, s2.str) <= 0;
 }
-bool operator>=(char* s1, const String& s2) {
+bool operator>=(const char* s1, const String& s2) {
     return std::strcmp(s1, s2.str) >= 0;
 }
-bool operator<(char* s1, const String& s2) {
+bool operator<(const char* s1, const String& s2) {
     return std::strcmp(s1, s2.str) < 0;
 }
-bool operator>(char* s1, const String& s2) {
+bool operator>(const char* s1, const String& s2) {
     return std::strcmp(s1, s2.str) > 0;
 }
 bool String::is_empty() const {
@@ -175,7 +176,7 @@ String String::right(int count) const {
 bool String::has_substing(const String& s) const {
     return std::strstr(str, s.str) != NULL;
 }
-bool String::has_substing(char* s) const {
+bool String::has_substing(const char* s) const {
     return std::strstr(str, s) != NULL;
 }
 bool String::has_symbol(char c) const {
@@ -194,7 +195,7 @@ String String::remove_substring(const String& s) const {
     //return left(start-str) + right(length - (start-str) - s.length);
     return substring(start - str, (start - str) + s.length);
 }
-String String::remove_substring(char* s) const {
+String String::remove_substring(const char* s) const {
     char* start = std::strstr(str, s);
     if (start == NULL) {
         return *this;

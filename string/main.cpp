@@ -1,5 +1,4 @@
 #include "string.h"
-#include <iostream>
 
 int main() {
     String s("hello");
